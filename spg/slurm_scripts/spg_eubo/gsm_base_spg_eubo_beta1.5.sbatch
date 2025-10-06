@@ -1,0 +1,50 @@
+#!/bin/bash
+#SBATCH --output=../../slurm/%A/slurm.out
+#SBATCH --job-name=gsm-eubo
+#SBATCH --time=72:00:00
+#SBATCH --wait-all-nodes=1
+#SBATCH --open-mode=append
+
+#SBATCH --nodes=1
+#SBATCH --gpus-per-node=8
+#SBATCH --qos=storygen_high
+#SBATCH --account=storygen
+#SBATCH --cpus-per-task=12
+
+export LOGDIR=../../logs
+mkdir -p $LOGDIR
+echo $LOGDIR
+
+source activate spg
+# Generate a random port number between 10000 and 65535
+RANDOM_PORT=$((RANDOM % 55536 + 10000))
+echo "Using random main_process_port: $RANDOM_PORT"
+
+SAVE_DIR=/fsx-checkpoints/
+
+DATASET="gsm8k"
+RUN_NAME=${DATASET}_base_spg_eubo_beta1.5
+MODEL_PATH=${SAVE_DIR}/hf_models/LLaDA-8B-Instruct
+NUM_ITER=4
+srun --cpu-bind=none --output ${LOGDIR}/spg_eubo_%j.out \
+    accelerate launch \
+        --config_file ../accelerate_genai_a100.yaml \
+        --main_process_port $RANDOM_PORT ../../diffu_grpo_train.py \
+        --config ../train.yaml \
+        --model_path $MODEL_PATH \
+        --num_iterations $NUM_ITER \
+        --dataset $DATASET \
+        --run_name $RUN_NAME \
+        --output_dir ${SAVE_DIR}/spg/$RUN_NAME \
+        --trainer spg \
+        --forward_type block_random \
+        --num_t 2 \
+        --min_t 0 \
+        --max_t 1 \
+        --num_generations 6 \
+        --per_device_train_batch_size 6 \
+        --gradient_accumulation_steps 2 \
+        --beta 0.0 \
+        --logp_estimation eubo \
+        --eubo_beta 1.5 \
+    
