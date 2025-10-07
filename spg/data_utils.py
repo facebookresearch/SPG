@@ -1,3 +1,8 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
 from datasets import load_dataset, Dataset
 import pandas as pd
 from reward_func import extract_hash_answer
