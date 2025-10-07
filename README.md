@@ -48,3 +48,6 @@ The evaluation code is inside the `eval` directory.
 ## Acknowledgement
 
 This codebase is developed on top of [d1 (Zhao et.al, 2025)](https://github.com/dllm-reasoning/d1).
+
+## License
+SPG is MIT licensed, as found in the LICENSE file.
