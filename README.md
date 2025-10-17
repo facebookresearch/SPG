@@ -82,7 +82,7 @@ If you find SPG useful in your research, please cite:
 ```
 @article{wang2025spg,
   title={SPG: Sandwiched Policy Gradient for Masked Diffusion Language Models},
-  author={Wang, Chengyu and Rashidinejad, Paria and Su, DiJia and Jiang, Song and Wang, Sid and Zhao, Siyan and Zhou, Cai and Shen, Shannon Zejiang and Chen, Feiyu and Jaakkola, Tommi and Tian, Yuandong and Liu, Bo},
+  author={Wang, Chenyu and Rashidinejad, Paria and Su, DiJia and Jiang, Song and Wang, Sid and Zhao, Siyan and Zhou, Cai and Shen, Shannon Zejiang and Chen, Feiyu and Jaakkola, Tommi and Tian, Yuandong and Liu, Bo},
   journal={arXiv preprint arXiv:2510.09541},
   year={2025}
 }
